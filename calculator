@@ -47,3 +47,319 @@
 </body>
 </html>
 });
+// css
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto Mono', monospace;
+    background: linear-gradient(to right, #2c3e50, #4ca1af);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.calculator-container {
+    width: 100%;
+    max-width: 420px; /* Slightly wider for new buttons */
+    background-color: rgba(0, 0, 0, 0.75);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    padding: 25px;
+    color: white;
+}
+
+.display {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: right;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.previous-operand {
+    min-height: 24px;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.current-operand {
+    font-size: 2.5rem;
+    font-weight: bold;
+    min-height: 48px;
+}
+
+.buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+button {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.5rem;
+    padding: 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    outline: none;
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.span-two {
+    grid-column: span 2;
+}
+
+.span-four {
+    grid-column: span 4;
+}
+
+.function {
+    background-color: rgba(150, 150, 150, 0.2);
+}
+
+.function:hover {
+    background-color: rgba(150, 150, 150, 0.3);
+}
+
+/* New class for scientific function buttons */
+.sci-function {
+    background-color: #34495e;
+}
+
+.sci-function:hover {
+    background-color: #2c3e50;
+}
+
+
+.operator {
+    background-color: #f39c12;
+}
+
+.operator:hover {
+    background-color: #e67e22;
+}
+
+//script.js
+class Calculator {
+    constructor(previousOperandTextElement, currentOperandTextElement) {
+        this.previousOperandTextElement = previousOperandTextElement;
+        this.currentOperandTextElement = currentOperandTextElement;
+        this.clear();
+    }
+
+    clear() {
+        this.currentOperand = '';
+        this.previousOperand = '';
+        this.operation = undefined;
+        this.updateDisplay();
+        this.currentOperandTextElement.innerText = '0';
+    }
+
+    delete() {
+        this.currentOperand = this.currentOperand.toString().slice(0, -1);
+        if (this.currentOperand === '') {
+            this.currentOperandTextElement.innerText = '0';
+        }
+    }
+
+    appendNumber(number) {
+        if (number === '.' && this.currentOperand.includes('.')) return;
+        this.currentOperand = this.currentOperand.toString() + number.toString();
+    }
+
+    chooseOperation(operation) {
+        if (this.currentOperand === '') return;
+        if (this.previousOperand !== '') {
+            this.compute();
+        }
+        this.operation = operation;
+        this.previousOperand = this.currentOperand;
+        this.currentOperand = '';
+    }
+
+    // NEW: Handles operations that only need one number (like square, sqrt)
+    performUnaryOperation(operation) {
+        const current = parseFloat(this.currentOperand);
+        if (isNaN(current)) return;
+        let result;
+
+        switch(operation) {
+            case 'sqrt':
+                if (current < 0) {
+                    this.clear();
+                    this.currentOperandTextElement.innerText = "Error";
+                    return;
+                }
+                result = Math.sqrt(current);
+                break;
+            case 'square':
+                result = current * current;
+                break;
+            default:
+                return;
+        }
+        this.currentOperand = result;
+        this.operation = undefined;
+        this.previousOperand = '';
+    }
+
+    compute() {
+        let computation;
+        const prev = parseFloat(this.previousOperand);
+        const current = parseFloat(this.currentOperand);
+        if (isNaN(prev) || isNaN(current)) return;
+
+        switch (this.operation) {
+            case '+':
+                computation = prev + current;
+                break;
+            case '-':
+                computation = prev - current;
+                break;
+            case '×':
+                computation = prev * current;
+                break;
+            case '÷':
+                if (current === 0) {
+                    this.clear();
+                    this.currentOperandTextElement.innerText = "Error";
+                    return;
+                }
+                computation = prev / current;
+                break;
+            case '^': // ADDED: Power operation
+                computation = Math.pow(prev, current);
+                break;
+            default:
+                return;
+        }
+        this.currentOperand = computation;
+        this.operation = undefined;
+        this.previousOperand = '';
+    }
+
+    getDisplayNumber(number) {
+        const stringNumber = number.toString();
+        const integerDigits = parseFloat(stringNumber.split('.')[0]);
+        const decimalDigits = stringNumber.split('.')[1];
+        let integerDisplay;
+        if (isNaN(integerDigits)) {
+            integerDisplay = '';
+        } else {
+            integerDisplay = integerDigits.toLocaleString('en', { maximumFractionDigits: 0 });
+        }
+        if (decimalDigits != null) {
+            return `${integerDisplay}.${decimalDigits}`;
+        } else {
+            return integerDisplay;
+        }
+    }
+
+    updateDisplay() {
+        this.currentOperandTextElement.innerText = this.getDisplayNumber(this.currentOperand);
+        if (this.currentOperand === '' && this.previousOperand === '') {
+            this.currentOperandTextElement.innerText = '0';
+        }
+
+        if (this.operation != null) {
+            this.previousOperandTextElement.innerText =
+                `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`;
+        } else {
+            this.previousOperandTextElement.innerText = '';
+        }
+    }
+}
+
+
+// --- DOM Element Selection ---
+const numberButtons = document.querySelectorAll('[data-number]');
+const operatorButtons = document.querySelectorAll('[data-operator]');
+const unaryOperationButtons = document.querySelectorAll('[data-unary-operation]'); // NEW
+const equalsButton = document.querySelector('[data-equals]');
+const deleteButton = document.querySelector('[data-delete]');
+const allClearButton = document.querySelector('[data-all-clear]');
+const previousOperandTextElement = document.querySelector('[data-previous-operand]');
+const currentOperandTextElement = document.querySelector('[data-current-operand]');
+
+// --- Calculator Instance ---
+const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement);
+
+// --- Event Listeners ---
+numberButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        calculator.appendNumber(button.innerText);
+        calculator.updateDisplay();
+    });
+});
+
+operatorButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        calculator.chooseOperation(button.innerText);
+        calculator.updateDisplay();
+    });
+});
+
+// NEW: Event listener for unary operation buttons
+unaryOperationButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        calculator.performUnaryOperation(button.dataset.unaryOperation);
+        calculator.updateDisplay();
+    });
+});
+
+equalsButton.addEventListener('click', button => {
+    calculator.compute();
+    calculator.updateDisplay();
+});
+
+allClearButton.addEventListener('click', button => {
+    calculator.clear();
+});
+
+deleteButton.addEventListener('click', button => {
+    calculator.delete();
+    calculator.updateDisplay();
+});
+
+// --- Keyboard Support ---
+window.addEventListener('keydown', function(e) {
+    const key = e.key;
+    if (key >= 0 && key <= 9 || key === '.') {
+        calculator.appendNumber(key);
+        calculator.updateDisplay();
+    } else if (key === '+' || key === '-' || key === '^') { // ADDED '^'
+        calculator.chooseOperation(key);
+        calculator.updateDisplay();
+    } else if (key === '*') {
+        calculator.chooseOperation('×');
+        calculator.updateDisplay();
+    } else if (key === '/') {
+        calculator.chooseOperation('÷');
+        calculator.updateDisplay();
+    } else if (key === 'Enter' || key === '=') {
+        calculator.compute();
+        calculator.updateDisplay();
+    } else if (key === 'Backspace') {
+        calculator.delete();
+        calculator.updateDisplay();
+    } else if (key === 'Escape') {
+        calculator.clear();
+    }
+});
