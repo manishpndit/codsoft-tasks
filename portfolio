@@ -1,0 +1,340 @@
+// index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manish Kumar | Personal Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head><body>
+
+    <header id="home">
+        <nav>
+            <div class="container">
+                <h1 class="logo">Manish Kumar</h1>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="header-content">
+            <div class="container">
+                <h2>Hi, I am Manish Kumar
+
+                </h2>
+                <p>A  B.Tech student in Computer Engineering at Kurukshetra University. I am eager to learn, apply my knowledge, and contribute to a fast-paced environment.</p>
+                <a href="#contact" class="btn">Hire Me</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="about" class="container">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <img src="my photo 1.jpg" alt="Manish Kumar" class="profile-pic">
+                <div class="about-text">
+                    <p>I am pursuing my graduation with a degree in Bachelor's Of Technology (B.Tech) in Computer Engineering.</p>
+                     <p>Highly motivated and enthusiastic, I demonstrate strong adaptability and a proactive attitude. I am ready to embrace challenges and apply my efforts to achieve goals effectively.  I possess strong skills in technologies like Python, C++, Django, and Node.js</p>
+                    <a href="Resume 1.pdf" download class="btn">Download Resume</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="container">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                 <div class="skill-item">C++ </div>
+                 <div class="skill-item">Python </div>
+                 <div class="skill-item">HTML </div>
+                 <div class="skill-item">JavaScript </div>
+                 <div class="skill-item">Node.js </div>
+                 <div class="skill-item">Object-Oriented Programming (OOP) </div>
+                 <div class="skill-item">Microsoft Excel </div>
+                 <div class="skill-item">Django </div>
+            </div>
+        </section>
+
+        <section id="experience" class="container">
+            <h2>Experience</h2>
+            <div class="experience-grid">
+                <div class="card">
+                     <h3>Cybersecurity Intern </h3>
+                     <p class="company">C-DAC |  Jul 2025 - Aug 2025 </p>
+                    <ul>
+                         <li>Actively participated in security vulnerability assessments.</li>
+                         <li>Analyzed network traffic to identify potential threats.</li>
+                         <li>Gained hands-on experience with industry-standard cybersecurity tools.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                     <h3>Python Programming Intern </h3>
+                     <p class="company">Ybi Foundation  |  Jul 2025 - Aug 2025 </p>
+                    <ul>
+                         <li>Applied Python skills to solve real-world problems.</li>
+                         <li>Gained practical experience with data structures, algorithms, Pandas, and NumPy.</li>
+                         <li>Completed hands-on projects like a contact book and mileage prediction </li>
+                    </ul>
+                </div>
+                <div class="card">
+                     <h3>Python Programming Intern </h3>
+                     <p class="company">Codsoft  |  Jul 2024 - Jul 2024 </p>
+                    <ul>
+                         <li>Applied Python programming skills to complete assigned tasks.</li>
+                         <li>Gained practical experience in libraries like Pandas and NumPy through hands-on projects.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="container">
+            <h2>Contact</h2>
+            <p>Feel free to reach out to me via email or connect with me on LinkedIn.</p>
+             <p><strong>Email:</strong> <a href="mailto:msharmaji872@gmail.com">msharmaji872@gmail.com</a> </p>
+             <p><strong>Phone:</strong> <a href="tel:+918901410056">8901410056</a> </p>
+             <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/manish-sharma-654089295" target="_blank">linkedin.com/in/manish-sharma-654089295</a> </p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Manish Kumar. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
+
+//style.css
+/* General Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    overflow: hidden;
+    padding: 0 20px;
+}
+
+/* Header & Navigation */
+header {
+    background: #333;
+    color: #fff;
+    padding-top: 1rem;
+    min-height: 70vh;
+    border-bottom: #007bff 3px solid;
+    display: flex;
+    flex-direction: column;
+}
+
+header nav {
+    width: 100%;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+header .nav-links {
+    list-style: none;
+    padding: 0;
+}
+
+header .nav-links li {
+    display: inline;
+    padding: 0 15px;
+}
+
+header .nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+
+header .nav-links a:hover {
+    color: #007bff;
+}
+
+.header-content {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.header-content h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.header-content p {
+    font-size: 1.5rem;
+    max-width: 700px;
+    margin: 0 auto 2rem auto;
+}
+
+/* Sections */
+section {
+    padding: 4rem 0;
+}
+
+section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+/* About Section */
+#about .about-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+#about .profile-pic {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #007bff;
+}
+
+#about .about-text {
+    flex: 1;
+}
+
+/* Skills Section */
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.skill-item {
+    background: #333;
+    color: #fff;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1.1rem;
+}
+
+/* Experience Section */
+.experience-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.card {
+    background: #fff;
+    padding: 2rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+    margin-top: 0;
+    color: #007bff;
+}
+
+.card .company {
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.card ul {
+    padding-left: 20px;
+}
+
+/* Contact Section */
+#contact {
+    text-align: center;
+    background: #333;
+    color: #fff;
+}
+
+#contact h2 {
+    color: #fff;
+}
+
+#contact a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#contact a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    background: #222;
+    color: #fff;
+    text-align: center;
+    padding: 1.5rem 0;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    background: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background: #0056b3;
+}
+
+/* Responsive Design */
+@media(max-width: 768px) {
+    header .container {
+        flex-direction: column;
+    }
+
+    header .nav-links {
+        padding: 1rem 0;
+    }
+    
+    .header-content h2 {
+        font-size: 2.5rem;
+    }
+
+    .header-content p {
+        font-size: 1.2rem;
+    }
+
+    #about .about-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .experience-grid {
+        grid-template-columns: 1fr;
+    }
+}
